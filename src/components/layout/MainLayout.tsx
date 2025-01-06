@@ -1,9 +1,4 @@
 import { Layout, Menu, MenuProps } from "antd";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
 import { Fragment } from "react/jsx-runtime";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -42,7 +37,6 @@ export default function MainLayout() {
             style={{
               color: "white",
               height: "4rem",
-              border: "2px solid red",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
