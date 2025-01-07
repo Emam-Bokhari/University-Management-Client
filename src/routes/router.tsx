@@ -4,6 +4,10 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import CreateAdmin from "../pages/admin/CreateAdmin";
+import CreateFaculty from "../pages/admin/CreateFaculty";
+import CreateStudent from "../pages/admin/createStudent";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +21,28 @@ export const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <App />,
+    children: [
+      {
+        path: "dashboard",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "create-admin",
+        element: <CreateAdmin />,
+      },
+      {
+        path: "create-faculty",
+        element: <CreateFaculty />,
+      },
+      {
+        path: "create-student",
+        element: <CreateStudent />,
       },
     ],
   },
