@@ -3,7 +3,7 @@ import { Fragment } from "react/jsx-runtime";
 import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
-import { studentPaths } from "../../routes/student.route";
+import { studentPaths } from "../../routes/student.routes";
 
 const { Sider } = Layout;
 

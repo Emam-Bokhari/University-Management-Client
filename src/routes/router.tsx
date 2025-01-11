@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import { adminPaths } from "./admin.routes";
 import { routesGenerator } from "../utils/routesGenerator";
 import { facultyPaths } from "./faculty.routes";
-import { studentPaths } from "./student.route";
+import { studentPaths } from "./student.routes";
 
 export const router = createBrowserRouter([
   {
