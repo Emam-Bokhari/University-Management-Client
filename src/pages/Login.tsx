@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Form, Input } from "antd";
 import { Fragment } from "react/jsx-runtime";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, FieldValues, useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hook";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
@@ -20,9 +20,9 @@ export default function Login() {
     },
   });
 
-  const [login, { error }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Logging in");
     try {
       const userInfo = {
