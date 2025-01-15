@@ -1,28 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Form, Input } from "antd";
+import { Button, Row } from "antd";
 import { Fragment } from "react/jsx-runtime";
-import { Controller, FieldValues, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch } from "../redux/hook";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PhInput";
 
 export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      id: "A-0000",
-      password: "admin123",
-    },
-  });
-
   const [login] = useLoginMutation();
 
+  const defaultValues = {
+    id: "A-0001",
+    password: "admin123",
+  };
+
   const onSubmit = async (data: FieldValues) => {
+    console.log(data);
     const toastId = toast.loading("Logging in");
     try {
       const userInfo = {
@@ -44,42 +45,15 @@ export default function Login() {
 
   return (
     <Fragment>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "15%",
-        }}
-      >
-        <Form
-          onFinish={handleSubmit(onSubmit)}
-          labelCol={{ span: 5 }}
-          style={{ minWidth: 400, maxWidth: 600 }}
-        >
-          <Form.Item label="Id" name="id">
-            <Controller
-              name="id"
-              control={control}
-              render={(field) => <Input {...field} defaultValue="A-0000" />}
-            />
-          </Form.Item>
-          <Form.Item label="Password" name="password">
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <Input.Password {...field} defaultValue="admin123" />
-              )}
-            />
-          </Form.Item>
-          <Form.Item label={null}>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+      <Row justify="center" align="middle" style={{ height: "100vh" }}>
+        <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
+          <PHInput type="text" name="id" label="ID" />
+
+          <PHInput type="password" name="password" label="Password" />
+
+          <Button htmlType="submit">Login</Button>
+        </PHForm>
+      </Row>
     </Fragment>
   );
 }
