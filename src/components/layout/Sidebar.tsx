@@ -36,7 +36,7 @@ export default function Sidebar() {
 
   return (
     <Fragment>
-      <Sider breakpoint="lg">
+      <Sider width={250} breakpoint="lg">
         {/* logo */}
         <div
           style={{
