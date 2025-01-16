@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Form } from "antd";
 import { ReactNode } from "react";
 import {
   FieldValues,
@@ -13,12 +15,14 @@ type TFormProps = {
 
 type TFormConfig = {
   defaultValues?: Record<string, unknown>;
+  resolver?: any;
 };
 
 export default function PHForm({
   children,
   onSubmit,
   defaultValues,
+  resolver,
 }: TFormProps) {
   const formConfig: TFormConfig = {};
 
@@ -26,11 +30,17 @@ export default function PHForm({
     formConfig["defaultValues"] = defaultValues;
   }
 
+  if (resolver) {
+    formConfig["resolver"] = resolver;
+  }
+
   const methods = useForm(formConfig);
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
+        {children}
+      </Form>
     </FormProvider>
   );
 }

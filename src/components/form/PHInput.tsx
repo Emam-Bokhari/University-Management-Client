@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Form, Input } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 
 type TInputProps = {
@@ -11,13 +11,14 @@ export default function PHInput({ type, name, label }: TInputProps) {
   const { control } = useFormContext();
 
   return (
-    <div style={{ marginBottom: "12px" }}>
-      {label ? label : null}
-      <Controller
-        control={control}
-        name={name}
-        render={({ field }) => <Input {...field} type={type} id={name} />}
-      />
-    </div>
+    <Controller
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <Form.Item label={label}>
+          <Input {...field} type={type} id={name} />
+        </Form.Item>
+      )}
+    />
   );
 }
