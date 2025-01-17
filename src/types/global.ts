@@ -21,3 +21,8 @@ export type TResponse<T> = {
     success: boolean,
     message: string,
 }
+
+export type TQueryParam = {
+    name: string;
+    value: boolean | React.Key;
+}
