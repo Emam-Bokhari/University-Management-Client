@@ -13,7 +13,7 @@ export default function AcademicSemester() {
   const { data: semesterData, isLoading } = useGetAllSemestersQuery(undefined);
   console.log(semesterData);
 
-  const tableData = semesterData?.data.map(
+  const tableData = semesterData?.data?.map(
     ({ _id, name, year, startMonth, endMonth }) => ({
       _id,
       name,
