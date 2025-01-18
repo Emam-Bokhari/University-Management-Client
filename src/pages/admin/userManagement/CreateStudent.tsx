@@ -1,9 +1,9 @@
 import { Fragment } from "react/jsx-runtime";
 
-export default function CreateAdmin() {
+export default function CreateStudent() {
   return (
     <Fragment>
-      <p>Create admin page</p>
+      <p>Create student data</p>
     </Fragment>
   );
 }

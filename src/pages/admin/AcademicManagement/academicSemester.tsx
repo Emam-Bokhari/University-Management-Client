@@ -1,6 +1,6 @@
 import { Fragment } from "react/jsx-runtime";
 import { useGetAllSemestersQuery } from "../../../redux/features/academicManagementApi/academicManagement.api";
-import { Popconfirm, Table, TableColumnsType, TableProps } from "antd";
+import { Table, TableColumnsType, TableProps } from "antd";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { useState } from "react";
 import { TQueryParam } from "../../../types";

@@ -48,6 +48,9 @@ importers:
       '@eslint/js':
         specifier: ^9.17.0
         version: 9.17.0
+      '@types/antd':
+        specifier: ^1.0.4
+        version: 1.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/react':
         specifier: ^18.3.18
         version: 18.3.18
@@ -610,6 +613,10 @@ packages:
     resolution: {integrity: sha512-D6qjsXGcvhTjv0kI4fU8tUuBDF/Ueee4SVX79VfNDXZa64TfCW1Slkb6Z7O1p7vflqZjcmOVdZlqf8gvJxc6og==}
     cpu: [x64]
     os: [win32]
+
+  '@types/antd@1.0.4':
+    resolution: {integrity: sha512-gp4PGQckP1kNjj2H6juhjKIVwkpXwCIyIvOlwp2DC6geuhVpDHEEB5gwH4hJabVgBAFtrjBPJ58VIRV9VV9W2g==}
+    deprecated: This is a stub types definition. antd provides its own type definitions, so you do not need this installed.
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -2056,6 +2063,16 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.30.1':
     optional: true
+
+  '@types/antd@1.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      antd: 5.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    transitivePeerDependencies:
+      - date-fns
+      - luxon
+      - moment
+      - react
+      - react-dom
 
   '@types/babel__core@7.20.5':
     dependencies:
