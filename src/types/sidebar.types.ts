@@ -4,6 +4,7 @@ export type TRoutePaths = {
     name: string;
     path?: string;
     element?: ReactNode;
+    icon?: ReactNode;
     children?: TRoutePaths[];
 }
 
@@ -15,5 +16,6 @@ export type TRoute = {
 export type TSidebarItem = {
     key: string;
     label: ReactNode;
+    icon?: ReactNode;
     children?: TSidebarItem[];
 };

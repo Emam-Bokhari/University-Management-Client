@@ -7,17 +7,20 @@ export const sidebarItemsGenerator = (items: TRoutePaths[], role: string) => {
       acc.push({
         key: item.name,
         label: <NavLink to={`/${role}/${item.path}`}> {item.name} </NavLink>,
+        icon: item.icon,
       });
     }
     if (item.children) {
       acc.push({
         key: item.name,
         label: item.name,
+        icon: item.icon,
         children: item.children.map((child) => ({
           key: child.name,
           label: (
             <NavLink to={`/${role}/${child.path}`}> {child.name} </NavLink>
           ),
+          icon: child.icon,
         })),
       });
     }

@@ -7,6 +7,8 @@ import { studentPaths } from "../../routes/student.routes";
 import { useAppSelector } from "../../redux/hook";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 
+import { useState } from "react";
+
 const { Sider } = Layout;
 
 const UserRole = {
@@ -16,6 +18,8 @@ const UserRole = {
 };
 
 export default function Sidebar() {
+  const [collapsed, setCollapsed] = useState(false);
+
   const user = useAppSelector(selectCurrentUser);
 
   let sidebarItems;
@@ -36,7 +40,16 @@ export default function Sidebar() {
 
   return (
     <Fragment>
-      <Sider width={250} breakpoint="lg">
+      <Sider
+        width={250}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+        collapsedWidth={80}
+        breakpoint="lg"
+        onBreakpoint={(broken) => setCollapsed(broken)}
+        style={{ height: "100vh", overflow: "auto" }}
+      >
         {/* logo */}
         <div
           style={{
@@ -47,13 +60,21 @@ export default function Sidebar() {
             alignItems: "center",
           }}
         >
-          <h1 style={{ fontWeight: "normal" }}>PH-University</h1>
+          <h1
+            style={{
+              fontWeight: "normal",
+              fontSize: collapsed ? "16px" : "18px",
+            }}
+          >
+            {collapsed ? "PH" : "PH-University"}
+          </h1>
         </div>
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["4"]}
+          defaultSelectedKeys={["1"]}
           items={sidebarItems}
+          inlineCollapsed={collapsed}
         />
       </Sider>
     </Fragment>

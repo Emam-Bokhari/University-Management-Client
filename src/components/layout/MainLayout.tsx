@@ -17,13 +17,13 @@ export default function MainLayout() {
   }
   return (
     <Fragment>
-      <Layout style={{ height: "100vh" }}>
+      <Layout style={{ height: "100vh", overflow: "hidden" }}>
         <Sidebar />
-        <Layout>
+        <Layout style={{ height: "100%", overflow: "auto" }}>
           <Header style={{ padding: 0 }}>
             <Button onClick={handleLogout}>Logout</Button>
           </Header>
-          <Content style={{ margin: "24px 16px 0" }}>
+          <Content style={{ margin: "24px 16px 0", overflow: "auto" }}>
             <div
               style={{
                 padding: 24,
