@@ -3,13 +3,79 @@ import PHInput from "../../../components/form/PHInput";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Button, Col, Divider, Row } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
-import { bloodGroupOptions } from "../../../constants/bloodGroups";
-import { genderOptions } from "../../../constants/genders";
+import { bloodGroupsOptions, genderOptions } from "../../../constants/global";
+import PHDatePicker from "../../../components/form/PHDatePicker";
+import {
+  useGetAllAcademicDepartmentQuery,
+  useGetAllSemestersQuery,
+} from "../../../redux/features/admin/academicManagement.api";
+import { useAddStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import { toast } from "sonner";
 
+const defaultValues = {
+  // admissionSemester: "67700b08bfb7def342b12521",
+  // academicDepartment: "67700a13bfb7def342b1251b",
+  name: {
+    firstName: "Moshfiqur",
+    middleName: "Rahman",
+    lastName: "Bhuiya",
+  },
+  gender: "male",
+  dateOfBirth: "1998-09-25",
+  email: "moshfiq@gmail.com",
+  contactNo: "01710347574",
+  emergencyContactNo: "01710347571",
+  bloogGroup: "O+",
+  presentAddress: "987 Pine Avenue, Citystate",
+  permanentAddress: "654 Maple Drive, Townland",
+  guardian: {
+    fatherName: "Robert Johnson",
+    fatherOccupation: "Architect",
+    fatherContactNo: "01710347570",
+    motherName: "Linda Johnson",
+    motherOccupation: "Nurse",
+    motherContactNo: "01710347573",
+  },
+  localGuardian: {
+    name: "Sarah Taylor",
+    occupation: "Lawyer",
+    contactNo: "01710347574",
+    address: "321 Birch Street, Suburbia",
+  },
+  isActive: "active",
+};
 export default function CreateStudent() {
+  const [addStudent, { data, error }] = useAddStudentMutation();
+  console.log(data, error);
+
+  const { data: semesterData, isLoading: IsSemesterLoading } =
+    useGetAllSemestersQuery(undefined);
+
+  const { data: departmentData } = useGetAllAcademicDepartmentQuery(undefined, {
+    skip: IsSemesterLoading,
+  });
+
+  const departmentOptions = departmentData?.data?.map((item) => ({
+    value: item._id,
+    label: item.name,
+  }));
+
+  const semesterOptions = semesterData?.data?.map((item) => ({
+    value: item._id,
+    label: `${item.name} ${item.year}`,
+  }));
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    // const formData = new FormData();
+    const toastId = toast.loading("Creating student...");
+    const studentData = {
+      password: "student123",
+      student: data,
+    };
+    console.log(studentData);
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(studentData));
+    addStudent(formData);
+    toast.success("Student is created successfully", { id: toastId });
     // formData.append("firstName", "Moshfiqur Rahman");
     // console.log(formData.get("firstName"));
     // console.log(Object.fromEntries(formData));
@@ -20,7 +86,7 @@ export default function CreateStudent() {
   return (
     <Row>
       <Col span={24}>
-        <PHForm onSubmit={onSubmit}>
+        <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
           {/* personal info */}
           <Divider>Personal Info.</Divider>
           <Row gutter={10}>
@@ -41,14 +107,14 @@ export default function CreateStudent() {
             </Col>
 
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput type="text" name="dateOfBirth" label="dateOfBirth" />
+              <PHDatePicker label="Date Of Birth" name="dateOfBirth" />
             </Col>
 
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PHSelect
                 name="bloogGroup"
                 label="Blood Group"
-                options={bloodGroupOptions}
+                options={bloodGroupsOptions}
               />
             </Col>
           </Row>
@@ -176,18 +242,18 @@ export default function CreateStudent() {
           <Divider>Academic Info.</Divider>
           <Row gutter={10}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
-                type="text"
+              <PHSelect
                 name="admissionSemester"
-                label="Admission Semester"
+                label="Academic Semester"
+                options={semesterOptions}
               />
             </Col>
 
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
-                type="text"
+              <PHSelect
                 name="academicDepartment"
                 label="Academic Department"
+                options={departmentOptions}
               />
             </Col>
           </Row>

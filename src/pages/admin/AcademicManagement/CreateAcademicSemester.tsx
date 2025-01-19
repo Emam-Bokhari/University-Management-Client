@@ -18,7 +18,7 @@ const yearOptions = [0, 1, 2, 3, 4, 5].map((item) => ({
   label: (currentYear + item).toString(),
 }));
 
-console.log(yearOptions);
+// console.log(yearOptions);
 
 export default function CreateAcademicSemester() {
   const [addAcademicSemester] = useAddAcademicSemesterMutation();
