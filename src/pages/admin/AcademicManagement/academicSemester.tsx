@@ -1,5 +1,5 @@
 import { Fragment } from "react/jsx-runtime";
-import { useGetAllSemestersQuery } from "../../../redux/features/academicManagementApi/academicManagement.api";
+import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { Table, TableColumnsType, TableProps } from "antd";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { useState } from "react";
@@ -82,8 +82,8 @@ export default function AcademicSemester() {
           value: "2030",
         },
       ],
-      // onFilter: (value, record) => record.year.startsWith(value as string),
-      // filterSearch: true,
+      onFilter: (value, record) => record.year.startsWith(value as string),
+      filterSearch: true,
     },
     {
       title: "Start Month",
