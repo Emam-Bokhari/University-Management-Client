@@ -1,7 +1,7 @@
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
-import { FieldValues, SubmitHandler } from "react-hook-form";
-import { Button, Col, Divider, Row } from "antd";
+import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import PHSelect from "../../../components/form/PHSelect";
 import { bloodGroupsOptions, genderOptions } from "../../../constants/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
@@ -46,7 +46,7 @@ const defaultValues = {
 };
 export default function CreateStudent() {
   const [addStudent, { data, error }] = useAddStudentMutation();
-  console.log(data, error);
+  console.log(data);
 
   const { data: semesterData, isLoading: IsSemesterLoading } =
     useGetAllSemestersQuery(undefined);
@@ -74,6 +74,7 @@ export default function CreateStudent() {
     console.log(studentData);
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
+    formData.append("file", data?.image);
     addStudent(formData);
     toast.success("Student is created successfully", { id: toastId });
     // formData.append("firstName", "Moshfiqur Rahman");
@@ -115,6 +116,22 @@ export default function CreateStudent() {
                 name="bloogGroup"
                 label="Blood Group"
                 options={bloodGroupsOptions}
+              />
+            </Col>
+
+            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+              <Controller
+                name="image"
+                render={({ field: { onChange, value, ...field } }) => (
+                  <Form.Item label="Picture">
+                    <Input
+                      type="file"
+                      value={value?.firstName}
+                      {...field}
+                      onChange={(e) => onChange(e.target.files?.[0])}
+                    />
+                  </Form.Item>
+                )}
               />
             </Col>
           </Row>
