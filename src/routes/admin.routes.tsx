@@ -18,6 +18,7 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement/CreateStudent";
+import StudentData from "../pages/admin/userManagement/StudentData";
 
 export const adminPaths = [
   {
@@ -47,6 +48,12 @@ export const adminPaths = [
         path: "create-student",
         icon: <UserAddOutlined style={{ fontSize: "20px" }} />,
         element: <CreateStudent />,
+      },
+      {
+        name: "Students",
+        path: "students-data",
+        icon: <TeamOutlined style={{ fontSize: "20px" }} />,
+        element: <StudentData />,
       },
     ],
   },
