@@ -1,12 +1,11 @@
 import { Fragment } from "react/jsx-runtime";
-import { Button, Dropdown, Menu, Pagination, Space, Table } from "antd";
+import { Button, Pagination, Space, Table } from "antd";
 import { useState } from "react";
 import { TQueryParam } from "../../../types";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
-import { BlockOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
-
+import { Link } from "react-router-dom";
 export default function StudentData() {
-  const [currentPage, setCurrentPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState();
 
   const [params, setParams] = useState<TQueryParam[]>([]);
 
@@ -15,18 +14,21 @@ export default function StudentData() {
     // isLoading,
     isFetching,
   } = useGetAllStudentsQuery([
-    { name: "limit", value: 3 },
     { name: "page", value: currentPage },
     { name: "sort", value: "id" },
     ...params,
   ]);
 
-  const tableData = studentData?.data?.map(({ _id, name, id }) => ({
-    key: _id,
-    firstName: name.firstName,
-    lastName: name.lastName,
-    id,
-  }));
+  const tableData = studentData?.data?.map(
+    ({ _id, name, id, email, contactNo }) => ({
+      key: _id,
+      firstName: name.firstName,
+      lastName: name.lastName,
+      id,
+      email,
+      contactNo,
+    })
+  );
 
   const metaData = studentData?.meta;
 
@@ -47,41 +49,30 @@ export default function StudentData() {
       key: "id",
     },
     {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Contact No.",
+      dataIndex: "contactNo",
+      key: "contactNo",
+    },
+    {
       title: "Action",
       dataIndex: "",
       key: "x",
-      render: () => (
-        <Dropdown
-          overlay={
-            <Menu>
-              <Menu.Item
-                key="1"
-                icon={<EditOutlined />}
-                style={{ padding: "10px 20px" }}
-              >
-                Update
-              </Menu.Item>
-              <Menu.Item
-                key="2"
-                icon={<DeleteOutlined />}
-                style={{ padding: "10px 20px" }}
-              >
-                Delete
-              </Menu.Item>
-              <Menu.Item
-                key="3"
-                icon={<BlockOutlined />}
-                style={{ padding: "10px 20px" }}
-              >
-                Block
-              </Menu.Item>
-            </Menu>
-          }
-          trigger={["click"]}
-        >
-          <Button>Actions</Button>
-        </Dropdown>
-      ),
+      render: (item) => {
+        return (
+          <Space>
+            <Link to={`/admin/student-data/${item.key}`}>
+              <Button>Details</Button>
+            </Link>
+            <Button>Update</Button>
+            <Button>Block</Button>
+          </Space>
+        );
+      },
       width: "1%",
     },
   ];

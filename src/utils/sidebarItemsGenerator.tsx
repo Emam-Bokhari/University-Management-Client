@@ -15,13 +15,17 @@ export const sidebarItemsGenerator = (items: TRoutePaths[], role: string) => {
         key: item.name,
         label: item.name,
         icon: item.icon,
-        children: item.children.map((child) => ({
-          key: child.name,
-          label: (
-            <NavLink to={`/${role}/${child.path}`}> {child.name} </NavLink>
-          ),
-          icon: child.icon,
-        })),
+        children: item.children.map((child) => {
+          if (child.name && child.icon) {
+            return {
+              key: child.name,
+              label: (
+                <NavLink to={`/${role}/${child.path}`}> {child.name} </NavLink>
+              ),
+              icon: child.icon,
+            };
+          }
+        }),
       });
     }
     return acc;
