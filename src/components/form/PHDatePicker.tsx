@@ -1,6 +1,6 @@
 import { DatePicker, Form } from "antd";
+import moment from "moment";
 import { Controller, useFormContext } from "react-hook-form";
-import { Fragment } from "react/jsx-runtime";
 
 type TDatePickerProps = {
   name: string;
@@ -8,23 +8,29 @@ type TDatePickerProps = {
 };
 
 export default function PHDatePicker({ name, label }: TDatePickerProps) {
-  const { control } = useFormContext();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
   return (
-    <Fragment>
-      <Controller
-        name={name}
-        control={control}
-        render={(field) => (
-          <Form.Item label={label}>
-            <DatePicker
-              id={name}
-              {...field}
-              size="large"
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-        )}
-      />
-    </Fragment>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <Form.Item label={label} validateStatus={errors[name] ? "error" : ""}>
+          <DatePicker
+            {...field}
+            id={name}
+            size="large"
+            style={{ width: "100%" }}
+            value={field.value ? moment(field.value) : null}
+            onChange={(date) =>
+              field.onChange(date ? date.toISOString() : null)
+            }
+          />
+        </Form.Item>
+      )}
+    />
   );
 }
