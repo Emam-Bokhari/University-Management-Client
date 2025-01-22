@@ -20,6 +20,12 @@ import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
 import CreateStudent from "../pages/admin/userManagement/CreateStudent";
 import StudentData from "../pages/admin/userManagement/StudentData";
 import StudentDetails from "../pages/admin/userManagement/StudentDetails";
+import RegisteredSemester from "../pages/admin/courseManagement/RegisteredSemester";
+import CreateCourse from "../pages/admin/courseManagement/CreateCourse";
+import Course from "../pages/admin/courseManagement/Course";
+import OfferCourse from "../pages/admin/courseManagement/OfferCourse";
+import OfferedCourse from "../pages/admin/courseManagement/OfferedCourse";
+import SemesterRegistration from "../pages/admin/courseManagement/SemesterRegistration";
 
 export const adminPaths = [
   {
@@ -101,6 +107,48 @@ export const adminPaths = [
         path: "academic-department",
         icon: <ApartmentOutlined style={{ fontSize: "20px" }} />,
         element: <AcademicDepartment />,
+      },
+    ],
+  },
+  {
+    name: "Course Management",
+    icon: <BookOutlined style={{ fontSize: "20px" }} />,
+    children: [
+      {
+        name: "Semester Registration",
+        path: "semester-registration",
+        icon: <EditOutlined style={{ fontSize: "20px" }} />,
+        element: <SemesterRegistration />,
+      },
+      {
+        name: "Registered Semesters",
+        path: "registered-semesters",
+        icon: <EditOutlined style={{ fontSize: "20px" }} />,
+        element: <RegisteredSemester />,
+      },
+      {
+        name: "Create Course",
+        path: "create-course",
+        icon: <CalendarOutlined style={{ fontSize: "20px" }} />,
+        element: <CreateCourse />,
+      },
+      {
+        name: "Courses",
+        path: "courses",
+        icon: <EditOutlined style={{ fontSize: "20px" }} />,
+        element: <Course />,
+      },
+      {
+        name: "Offer Course",
+        path: "offer-course",
+        icon: <SolutionOutlined style={{ fontSize: "20px" }} />,
+        element: <OfferCourse />,
+      },
+      {
+        name: "Offered Course",
+        path: "offered-courses",
+        icon: <EditOutlined style={{ fontSize: "20px" }} />,
+        element: <OfferedCourse />,
       },
     ],
   },
