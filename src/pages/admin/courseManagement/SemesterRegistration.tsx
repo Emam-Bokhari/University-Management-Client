@@ -6,11 +6,15 @@ import PHSelect from "../../../components/form/PHSelect";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHInput from "../../../components/form/PHInput";
+import { useAddRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement.api";
+import { toast } from "sonner";
 
 export default function SemesterRegistration() {
   const { data: academicSemester } = useGetAllSemestersQuery([
     { name: "sort", value: "year" },
   ]);
+
+  const [addSemester] = useAddRegisteredSemesterMutation();
 
   const status = ["UPCOMING", "ONGOING", "ENDED"];
 
@@ -25,10 +29,24 @@ export default function SemesterRegistration() {
   }));
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating semester registration...");
     const semesterData = {
       ...data,
+      minCredit: Number(data?.minCredit),
+      maxCredit: Number(data?.maxCredit),
     };
     console.log(semesterData);
+
+    try {
+      const result = await addSemester(semesterData);
+      if (result.error) {
+        toast.error(result?.error?.data?.message, { id: toastId });
+      } else {
+        toast.success("Semester registered successfully", { id: toastId });
+      }
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
   };
 
   return (
@@ -36,7 +54,7 @@ export default function SemesterRegistration() {
       <Col span={6}>
         <PHForm onSubmit={onSubmit}>
           <PHSelect
-            name="name"
+            name="academicSemester"
             label="Semester Name"
             options={academicSemesterOptions}
           />
