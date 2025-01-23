@@ -5,9 +5,15 @@ type TPHSelectProps = {
   label: string;
   name: string;
   options: { value: string; label: string; disabled?: boolean }[] | undefined;
+  mode?: "multiple" | undefined;
 };
 
-export default function PHSelect({ label, name, options }: TPHSelectProps) {
+export default function PHSelect({
+  label,
+  name,
+  options,
+  mode,
+}: TPHSelectProps) {
   const { control } = useFormContext();
 
   return (
@@ -17,6 +23,7 @@ export default function PHSelect({ label, name, options }: TPHSelectProps) {
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
+            mode={mode}
             {...field}
             defaultValue={"None"}
             style={{ width: "100%" }}
