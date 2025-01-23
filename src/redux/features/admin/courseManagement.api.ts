@@ -8,8 +8,14 @@ const courseManagementApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data,
             })
+        }),
+        getAllRegisteredSemesters: builder.query({
+            query: () => ({
+                url: "/semester-registrations",
+                method: "GET",
+            })
         })
     })
 })
 
-export const { useAddRegisteredSemesterMutation } = courseManagementApi;
+export const { useAddRegisteredSemesterMutation, useGetAllRegisteredSemestersQuery } = courseManagementApi;
