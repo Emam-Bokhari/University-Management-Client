@@ -9,7 +9,7 @@ import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../components/form/PHForm";
-import PHInput from "../components/form/PhInput";
+import PHInput from "../components/form/PHInput";
 
 export default function Login() {
   const dispatch = useAppDispatch();
